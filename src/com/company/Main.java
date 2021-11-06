@@ -1,8 +1,30 @@
 package com.company;
 
+import java.io.IOException;
+import java.nio.file.FileSystemException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.rmi.ConnectIOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
+
+        try {
+            String sourcePath = "c:/desktop/plik_który_nie_istnieje.txt";
+            String destinationPath = "c:/desktop/folder_który_nie_istnieje/";
+            Files.copy(Paths.get(sourcePath), Paths.get(destinationPath));
+        } catch (FileSystemException e) {
+            System.out.println("błąd dysku");
+        } catch (ConnectIOException e) {
+            System.out.println("błąd połączenia");
+        } catch (IOException e) {
+            System.out.println("inny błąd zapisu");
+        } catch (Exception e) {
+            System.out.println("jakiś inny błąd, nie mam pojęcia jaki");
+        }
+
+
         PersonalCar fiat = new PersonalCar("fiat", "bravo", 2016);
         PersonalCar bmw = new PersonalCar("bmw", "X5", 2020);
         PersonalCar vw = new PersonalCar("vw", "passat", 1990);
@@ -40,5 +62,23 @@ public class Main {
         fiat.changeWheels();
         scania.changeWheels();
         solaris.changeWheels();
+
+        System.out.println(scania.producer);
+        System.out.println(scania.toString());
+
+        Human brotherInLaw = new Human();
+        Human me = new Human();
+
+        Bike bike = new Bike();
+        bike.owner = me;
+
+        try {
+            bike.sell(brotherInLaw);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("jakiś bardzo ważny kod");
+        System.out.println("np że robimy razem grilla");
+
     }
 }
