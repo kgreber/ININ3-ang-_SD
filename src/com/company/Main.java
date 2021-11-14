@@ -5,10 +5,14 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.ConnectIOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         try {
             String sourcePath = "c:/desktop/plik_który_nie_istnieje.txt";
@@ -63,22 +67,70 @@ public class Main {
         scania.changeWheels();
         solaris.changeWheels();
 
-        System.out.println(scania.producer);
-        System.out.println(scania.toString());
+        int[] numbers = new int[4];
 
-        Human brotherInLaw = new Human();
-        Human me = new Human();
+        numbers[0] = 3;
+        numbers[1] = 6;
+        numbers[2] = 1;
+        numbers[3] = 2;
 
-        Bike bike = new Bike();
-        bike.owner = me;
-
-        try {
-            bike.sell(brotherInLaw);
-        } catch (Exception e) {
-            e.printStackTrace();
+        System.out.println("sorted");
+        for (int i : numbers) {
+            System.out.println(i);
         }
-        System.out.println("jakiś bardzo ważny kod");
-        System.out.println("np że robimy razem grilla");
 
+        Arrays.sort(numbers);
+        System.out.println("sorted");
+        for (int i : numbers) {
+            System.out.println(i);
+        }
+
+        String[] texts = new String[5];
+        texts[0] = "234244";
+        texts[1] = "afeafe";
+        texts[2] = "agegeeer";
+        texts[3] = "zzzzz";
+        texts[4] = "gggg";
+
+        Arrays.sort(texts);
+
+        for (String s : texts) {
+            System.out.println(s);
+        }
+
+        Car[] cars = new Car[5];
+        cars [0] = new Bus("solaris", "S400", 2014);
+        cars [1] = new Truck ("MAN", "milenial", 2021);
+        cars [2] = null;
+        cars [3] = new FunnyCar("Gokard", "gokart", 2000);
+        cars [4] = new FunnyCar("Fiat", "500", 2005);
+
+        Arrays.sort(cars, new CarComparator());
+
+        for(Car car : cars){
+            if (car == null){
+                System.out.println("null");
+            } else {
+                System.out.println("producer " + car.producer + "model "+ car.model);
+            }
+        }
+        LinkedList<Truck> trucks = new LinkedList<>();
+        trucks.add(new Truck("SCANIA" , "S300", 2021));
+        trucks.getLast().capacityInTones = 24.0;
+        trucks.add(new Truck ("MERCEDES", "M200" , 2011));
+        trucks.getLast().capacityInTones = 23.0;
+        trucks.add(new Truck( "START", "200" , 2020));
+        trucks.getLast().capacityInTones = 13.0;
+
+        Collections.sort(trucks);
+
+        System.out.println("trucks");
+        for (Truck truck : trucks) {
+            System.out.println(truck + "capacity" + truck.capacityInTones);
+        }
+
+        Collections.sort(trucks,Comparator.nullsFirst(Comparator.comparing(Truck::getCapacityInTones)));
+
+        trucks.sort((Comparator.nullsFirst(Comparator.comparing(Truck :: getCapacityInTones))));
     }
 }

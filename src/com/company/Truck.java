@@ -48,5 +48,19 @@ public class Truck extends Car {
         this.drivingTimeInHours = 0.0;
     }
 
+    public int compareTO(Truck otherTruck) {
+        if (this.capacityInTones > otherTruck.capacityInTones) {
+            return -1;
 
+        } else if (this.capacityInTones.equals(otherTruck.capacityInTones)) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+
+    public Double getCapacityInTones() {
+        return this.capacityInTones;
+    }
 }
